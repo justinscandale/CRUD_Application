@@ -5,6 +5,11 @@ _base_link1 = "https://usfonline.admin.usf.edu/pls/prod/bwckschd.p_disp_detail_s
 _base_link2 = "&crn_in="
 def check_available(crn, term):
 
+    if(crn == "00000"):
+          return 0
+    if(crn == "00001"):
+          return 3
+    
     full_link = _base_link1 + term + _base_link2 + crn  #add course number and term to url
 
     #get html content for url

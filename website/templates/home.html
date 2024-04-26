@@ -4,10 +4,11 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<h1 align="center">Notes</h1>
+<br>
+<br>
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
-    <li class="list-group-item" {%if note.seats_available > 0%} style="background-color:  #006747; color:white;" {%else%} style="background-color: #466069;color: black;"{%endif%}>
+    <li class="list-group-item rounded" {%if note.seats_available > 0%} style="background-color:  #006747; color:white;" {%else%} style="background-color: #466069;color: black;"{%endif%}>
         {%if note.term[4:6] == "05"%}
         Summer 
         {%elif note.term[4:6] =="08"%}
@@ -29,6 +30,7 @@
 
 <br>
 
+<label for="addNote_btn">Add Courses Here:</label>
 <form method="POST">
     <div class="form-group">
         <input name="note" id="note" class="form-control" placeholder="Enter CRN" required></input>

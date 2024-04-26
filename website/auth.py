@@ -3,7 +3,7 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db 
 from flask_login import login_user, login_required, logout_user, current_user
-
+from .models import Note, User
 
 auth = Blueprint('auth',__name__)
 
@@ -53,6 +53,11 @@ def sign_up():
             db.session.commit()
             flash('Account successfully created', category='success')
             login_user(new_user, remember=True)
+            new_note1 = Note(data="00000", seats_available= 10, course_info = "Ex 101", user_id=current_user.id, term="202405")
+            new_note2 = Note(data="00001", seats_available= 0, course_info = "Ex 202", user_id=current_user.id, term="202408")
+            db.session.add(new_note1)
+            db.session.add(new_note2)
+            db.session.commit()
             return redirect(url_for('views.home'))
         
     return render_template("sign_up.html",user = current_user)

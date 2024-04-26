@@ -36,3 +36,7 @@ body{
 li:not(:last-child) {
     margin-bottom: 5px;
 }
+
+.rounded{
+    border-radius: 25px !important;
+}
