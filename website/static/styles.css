@@ -1,0 +1,38 @@
+body{
+    background-color: #EDEBD1;
+    color: black;
+}
+
+.navbar {
+    background-color: #006747 !important;
+    color: white !important;
+}
+
+#login_home{
+    color: #006747;
+    padding-bottom: 0px;
+}
+
+#login_home:hover{
+    color: #00441b;
+}
+
+#signUp_home{
+    padding-top: 0px;
+    color:#006747;
+}
+#signUp_home:hover{
+    color:#00441b;
+}
+
+#submit_btn, #login_btn, #addNote_btn, #refreshButton{
+    background-color: #006747;
+}
+
+#submit_btn:hover, #login_btn:hover,#addNote_btn:hover, #refreshButton:hover{
+    background-color: #00441b;
+}
+
+li:not(:last-child) {
+    margin-bottom: 5px;
+}

@@ -14,6 +14,7 @@
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="static/styles.css">
     
         <title>{% block title %}Home{% endblock %}</title>
     </head>
@@ -31,7 +32,7 @@
           <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
               {% if user.is_authenticated %}
-              <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+              <a class="nav-item nav-link" id="logout" href="/logout">Logout: {{user.email}}</a>
               {% else %}
               <a class="nav-item nav-link" id="home" href="/">Home</a>
               <a class="nav-item nav-link" id="login" href="/login">Login</a>
@@ -89,6 +90,30 @@
       });
       }
     </script> 
+
+    <script type="text/javascript">
+      // Function to handle button click for refreshing data
+      function handleRefreshButtonClick() {
+          fetch("/refresh-data", { method: "POST" })
+              .then(response => response.json())
+              .then(data => {
+                  // Log success message
+                  console.log(data.message);
+
+                  // Update HTML or perform other actions if needed
+                  // For example, you can reload the page
+                  window.location.reload();
+              })
+              .catch(error => {
+                  console.error('Error refreshing data:', error);
+              });
+      }
+
+      // Add event listener to the refresh button
+      const refreshButton = document.getElementById('refreshButton');
+      refreshButton.addEventListener('click', handleRefreshButtonClick);
+    </script>
+
     {% endblock %} 
     </body>
 </html>

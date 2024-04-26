@@ -7,7 +7,19 @@
 <h1 align="center">Notes</h1>
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
-    <li class="list-group-item">{{ note.data }}
+    <li class="list-group-item" {%if note.seats_available > 0%} style="background-color:  #006747; color:white;" {%else%} style="background-color: #466069;color: black;"{%endif%}>
+        {%if note.term[4:6] == "05"%}
+        Summer 
+        {%elif note.term[4:6] =="08"%}
+        Fall
+        {%else%}
+        Spring
+        {% endif %}
+        {{note.term[0:4]}} <br>
+        {{note.course_info}}
+        ({{ note.data }})
+        <br>
+        Seats Availiable: {{ note.seats_available }}
         <button type="button" class="close" onClick="deleteNote({{ note.id }})">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -15,19 +27,39 @@
     {%endfor%}
 </ul>
 
+<br>
+
 <form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <br>
+    <div class="form-group">
+        <input name="note" id="note" class="form-control" placeholder="Enter CRN" required></input>
+    </div>
+    <div class="form-group">
+        <select class="form-control" name="note-term" id="note-term" placeholder="Select Course Term" required>
+            <option value="" disabled selected>Select Course Term</option>
+            <option value="202408">Fall 2024</option>
+            <option value="202405">Summer 2024</option>
+        </select>
+    </div>
     <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
+        <button type="submit" id="addNote_btn" class="btn btn-primary">Add Note</button>
+        <button type="button" id="refreshButton" class="btn btn-primary">Refresh</button>
     </div>
 </form>
+<br>
 
 {% else %}
 <br>
-<h1 align="center">Welcome to my CRUD application, please sign up or login to access the features of this application</h1>
+<h1 align="center">USF Course Availability Tracker</h1>
 <br>
-<h3 align ="center">This app allows storage of notes</h3>
+<ul>
+    <li>Streamline your course management experience with our intuitive web app designed exclusively for the University of South Florida community. </li>
+    <li>Easily add and update courses, while staying informed about seat availability in real-time. </li>
+    <li>Say goodbye to the hassle of manually tracking course openings – USF Course Availability Tracker puts you in control of your academic journey.</li>
+    <li> Join us today and simplify your course selection process!</li>
+</ul>
+
+<a class="nav-item nav-link" align="center" id="login_home" href="/login">Login</a>
+<a class="nav-item nav-link" align="center" id="signUp_home" href="/sign-up">Don't have an account?</a>
 {% endif %}
 
 {% endblock %}
