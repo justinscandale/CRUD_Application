@@ -21,13 +21,15 @@ def home():
             elif scraper.valid_crn_scraper.check_available(note,term)['valid'] == 0: 
                 flash(f"Failed to Add CRN {note}", category="error")
             else:
-                course_info = scraper.valid_crn_scraper.check_available(note,term)['course_info']
+                scraper_dict = scraper.valid_crn_scraper.check_available(note,term)
+                course_info = scraper_dict['course_info']
+                course_name = scraper_dict['course_name']
                 seats_available = scraper.seat_scraper.check_available(note,term)
                 note_exsists = Note.query.filter_by(data=note,term=term,user_id=current_user.id).first()
                 if(note_exsists):
                     flash(f"Course with CRN: {note} & term {term} already in database",category="error")
                 else:
-                    new_note = Note(data=note, seats_available= seats_available, course_info = course_info, user_id=current_user.id, term=term)
+                    new_note = Note(data=note, course_name=course_name, seats_available= seats_available, course_info = course_info, user_id=current_user.id, term=term)
                     db.session.add(new_note)
                     db.session.commit()
                     flash("Course added!",category="success")

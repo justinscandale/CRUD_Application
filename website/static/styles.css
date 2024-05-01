@@ -1,3 +1,7 @@
+*{
+    font-family: Garamond;
+}
+
 body{
     background-color: #EDEBD1;
     color: black;
@@ -25,11 +29,11 @@ body{
     color:#00441b;
 }
 
-#submit_btn, #login_btn, #addNote_btn, #refreshButton{
-    background-color: #006747;
+#submit_btn, #login_btn, #addNote_btn, #refreshButton, #login_btn_home, #signup_btn_home{
+    background-color: #006747;s
 }
 
-#submit_btn:hover, #login_btn:hover,#addNote_btn:hover, #refreshButton:hover{
+#submit_btn:hover, #login_btn:hover,#addNote_btn:hover, #refreshButton:hover, #login_btn_home:hover, #signup_btn_home:hover{
     background-color: #00441b;
 }
 
@@ -37,6 +41,74 @@ li:not(:last-child) {
     margin-bottom: 5px;
 }
 
+.home-list-item{
+    font-size: 20px;;
+}
+
+.home-div{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .rounded{
     border-radius: 25px !important;
+}
+
+#home-text{
+    font-size: 19px;
+}
+
+#home-title{
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.close-custom{
+    color: #EDEBD1 !important;
+}
+
+/* popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%; /* Position 50% from the top of the viewport */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffff;
+    border: 8px solid black; /* Black border */
+    padding: 30px;
+    z-index: 9999;
+    color: black;
+    max-width: 80%; /* Adjust this value to control the maximum width of the popup */
+    border-radius: 25px;
+    max-height: 80%; /* Limit maximum height to 80% of the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
+}
+
+.popup h2 {
+    margin-top: 0;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #006747;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #00441b;
+}
+.navbar-nav {
+    flex-direction: row; /* Display items horizontally */
+}
+
+.navbar-nav .nav-item {
+    margin-right: 10px; /* Add spacing between items */
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem; /* Adjust padding for better spacing */
 }

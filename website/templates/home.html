@@ -8,7 +8,11 @@
 <br>
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
-    <li class="list-group-item rounded" {%if note.seats_available > 0%} style="background-color:  #006747; color:white;" {%else%} style="background-color: #466069;color: black;"{%endif%}>
+    <li class="list-group-item rounded" {%if note.seats_available > 0%} style="background-color:  #006747; color:#EDEBD1;" {%else%} style="background-color: #466069;color: #EDEBD1;"{%endif%}>
+        {{note.course_name}}<br>
+        {{note.course_info}}
+        ({{ note.data }})
+        <br>
         {%if note.term[4:6] == "05"%}
         Summer 
         {%elif note.term[4:6] =="08"%}
@@ -17,11 +21,10 @@
         Spring
         {% endif %}
         {{note.term[0:4]}} <br>
-        {{note.course_info}}
-        ({{ note.data }})
+
         <br>
         Seats Availiable: {{ note.seats_available }}
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+        <button type="button" class="close close-custom" onClick="deleteNote({{ note.id }})">
             <span aria-hidden="true">&times;</span>
         </button>
     </li>
@@ -51,17 +54,38 @@
 
 {% else %}
 <br>
-<h1 align="center">USF Course Availability Tracker</h1>
 <br>
-<ul>
-    <li>Streamline your course management experience with our intuitive web app designed exclusively for the University of South Florida community. </li>
-    <li>Easily add and update courses, while staying informed about seat availability in real-time. </li>
-    <li>Say goodbye to the hassle of manually tracking course openings – USF Course Availability Tracker puts you in control of your academic journey.</li>
-    <li> Join us today and simplify your course selection process!</li>
-</ul>
+<h1 align="center" id="home-title">USF Course Availability Tracker</h1>
+<br>
+<br>
 
-<a class="nav-item nav-link" align="center" id="login_home" href="/login">Login</a>
-<a class="nav-item nav-link" align="center" id="signUp_home" href="/sign-up">Don't have an account?</a>
+<p align="center" id="home-text">
+    -Say goodbye to the hassle of manually tracking course openings
+    <br>
+    <br>
+    -USF Course Availability Tracker puts you in control of your academic journey.
+    <br>
+    <br>
+    - Streamline your course management experience with our intuitive web app designed exclusively for the University of South Florida community. 
+    <br>
+    <br>
+    - Easily add and update courses, while staying informed about seat availability in real-time.
+    <br>
+    <br>
+    - Join us today and simplify your course selection process!
+    <br>
+    <br>
+</p>
+
+
+<div align="center" class="home-div">
+    <a href="/login">
+        <button class="btn btn-primary" id="login_btn_home" align="center" id="login_home">Login</button>
+    </a>
+</div>    
+<div align="center" class="home-div">    
+    <a href="/sign-up"><button class="btn btn-primary" id="signup_btn_home" align="center" id="signUp_home">Don't have an account?</button></a>
+</div>
+
 {% endif %}
-
 {% endblock %}

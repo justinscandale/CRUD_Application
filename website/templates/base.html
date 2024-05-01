@@ -32,7 +32,24 @@
           <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
               {% if user.is_authenticated %}
-              <a class="nav-item nav-link" id="logout" href="/logout">Logout: {{user.email}}</a>
+              <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+              <a class="nav-item nav-link" id="helpButton">Help</a>
+
+
+              <div id="helpPopup" class="popup">
+                  <span class="close" onclick="closePopup()">&times;</span>
+                  <h2>How to Add Courses:</h2>
+                  <p>- Find Course CRN & Term</p>
+                  <p>- Input Info Into "Add Courses Here" Section<br></p>
+                    <p>- Press "Add Note"</p>
+                  <p>- Courses Will Appear At Top of Page </p>
+                    <p>- Green Background = Seats | Grey Background = No Seats</p>
+                  <h2>How to Refresh Seat Count:</h2>
+                  <p>- Press "Refresh" </p>
+                  <p>- Each Course Will Be Checked For Availability and Updated</p>
+                  <p>- Utilizes Custom Web-Scraping Scripts For Up-To-Date Information</p>
+              </div>
+
               {% else %}
               <a class="nav-item nav-link" id="home" href="/">Home</a>
               <a class="nav-item nav-link" id="login" href="/login">Login</a>
@@ -114,6 +131,55 @@
       refreshButton.addEventListener('click', handleRefreshButtonClick);
     </script>
 
+    <script type="text/javascript">
+              // Get the help button and help popup
+        const helpButton = document.getElementById('helpButton');
+        const helpPopup = document.getElementById('helpPopup');
+
+// Function to open or close the popup
+function togglePopup() {
+    if (helpPopup.style.display === 'block') {
+        // If the popup is already open, close it
+        helpPopup.style.display = 'none';
+    } else {
+        // If the popup is closed, open it
+        helpPopup.style.display = 'block';
+    }
+}
+
+// Event listener for the help button
+helpButton.addEventListener('click', togglePopup);
+
+// Event listener for clicks on the document
+document.addEventListener('click', function(event) {
+    // Check if the clicked element is outside the popup
+    if (!helpPopup.contains(event.target) && event.target !== helpButton) {
+        // Close the popup
+        helpPopup.style.display = 'none';
+    }
+});
+
+// Function to close the popup
+function closePopup() {
+    helpPopup.style.display = 'none';
+}
+
+// Event listener for the help button
+helpButton.addEventListener('click', togglePopup);
+
+// Event listener for the close button
+closeButton.addEventListener('click', closePopup);
+
+// Event listener for clicks on the document
+document.addEventListener('click', function(event) {
+    // Check if the clicked element is outside the popup and the help button
+    if (!helpPopup.contains(event.target) && event.target !== helpButton) {
+        // Close the popup
+        helpPopup.style.display = 'none';
+    }
+});
+        
+    </script>
     {% endblock %} 
     </body>
 </html>

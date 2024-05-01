@@ -28,3 +28,22 @@ function handleRefreshButtonClick() {
 // Add event listener to the refresh button
 const refreshButton = document.getElementById('refreshButton');
 refreshButton.addEventListener('click', handleRefreshButtonClick);
+
+
+//popup
+// Get the help button and help popup
+const helpButton = document.getElementById('helpButton');
+const helpPopup = document.getElementById('helpPopup');
+
+// Function to open the popup
+function openPopup() {
+    helpPopup.style.display = 'block';
+}
+
+// Function to close the popup
+function closePopup() {
+    helpPopup.style.display = 'none';
+}
+
+// Event listener for the help button
+helpButton.addEventListener('click', openPopup);

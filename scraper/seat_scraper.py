@@ -3,6 +3,7 @@ import requests
 
 _base_link1 = "https://usfonline.admin.usf.edu/pls/prod/bwckschd.p_disp_detail_sched?term_in="
 _base_link2 = "&crn_in="
+
 def check_available(crn, term):
 
     if(crn == "00000"):

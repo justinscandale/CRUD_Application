@@ -13,6 +13,7 @@ class Note(db.Model):
     data = db.Column(db.String(6),unique=True)
     term = db.Column(db.String(20), default="202408")
     seats_available = db.Column(db.Integer,default=-1)
+    course_name = db.Column(db.String(15))
     course_info = db.Column(db.String(10))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
