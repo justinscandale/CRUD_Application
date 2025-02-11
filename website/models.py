@@ -6,11 +6,11 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer,primary_key=True)
     email = db.Column(db.String(150),unique=True)
     password = db.Column(db.String(150))
-    notes = db.relationship('Note')
+    notes = db.relationship('Course')
     
-class Note(db.Model):
+class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(6),unique=True)
+    data = db.Column(db.String(6))
     term = db.Column(db.String(20), default="202408")
     seats_available = db.Column(db.Integer,default=-1)
     course_name = db.Column(db.String(15))

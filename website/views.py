@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, jsonify, redirect,
 from flask_login import login_required, current_user
 import scraper.seat_scraper
 import scraper.valid_crn_scraper
-from .models import Note
+from .models import Course
 from . import db
 import json
 import scraper
@@ -13,24 +13,24 @@ views = Blueprint('views',__name__)
 def home():
     if(current_user):
         if request.method == 'POST':
-            note = request.form.get('note')
+            course = request.form.get('note')
             term = request.form.get('note-term')
             print(term)
-            if len(note) != 5 or not note.isnumeric():
+            if len(course) != 5 or not course.isnumeric():
                 flash("CRN Must be 5 Numeric Digits", category="error")
-            elif scraper.valid_crn_scraper.check_available(note,term)['valid'] == 0: 
-                flash(f"Failed to Add CRN {note}", category="error")
+            elif scraper.valid_crn_scraper.check_available(course,term)['valid'] == 0: 
+                flash(f"Failed to Add CRN {course}", category="error")
             else:
-                scraper_dict = scraper.valid_crn_scraper.check_available(note,term)
+                scraper_dict = scraper.valid_crn_scraper.check_available(course,term)
                 course_info = scraper_dict['course_info']
                 course_name = scraper_dict['course_name']
-                seats_available = scraper.seat_scraper.check_available(note,term)
-                note_exsists = Note.query.filter_by(data=note,term=term,user_id=current_user.id).first()
-                if(note_exsists):
-                    flash(f"Course with CRN: {note} & term {term} already in database",category="error")
+                seats_available = scraper.seat_scraper.check_available(course,term)
+                course_exsists = Course.query.filter_by(data=course,term=term,user_id=current_user.id).first()
+                if(course_exsists):
+                    flash(f"Course with CRN: {course} & term {term} already in database",category="error")
                 else:
-                    new_note = Note(data=note, course_name=course_name, seats_available= seats_available, course_info = course_info, user_id=current_user.id, term=term)
-                    db.session.add(new_note)
+                    new_course = Course(data=course, course_name=course_name, seats_available= seats_available, course_info = course_info, user_id=current_user.id, term=term)
+                    db.session.add(new_course)
                     db.session.commit()
                     flash("Course added!",category="success")
 
@@ -38,12 +38,12 @@ def home():
 
 @views.route('/delete-note',methods=['POST'])
 def delete_note():
-    note = json.loads(request.data)
-    noteID = note['noteId']
-    note = Note.query.get(noteID)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
+    course = json.loads(request.data)
+    courseID = course['noteId']
+    course = Course.query.get(courseID)
+    if course:
+        if course.user_id == current_user.id:
+            db.session.delete(course)
             db.session.commit()
     
     return jsonify({})
@@ -51,8 +51,8 @@ def delete_note():
 @views.route('/refresh-data', methods=['POST'])
 def refresh_data():
     db.session.begin()
-    for note in current_user.notes:
-        note.seats_available = scraper.seat_scraper.check_available(note.data,note.term)
+    for course in current_user.courses:
+        course.seats_available = scraper.seat_scraper.check_available(course.data,course.term)
     db.session.commit()
     # Return a success message
     return jsonify({'message': 'Data refreshed successfully'}), 200

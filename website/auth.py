@@ -1,9 +1,8 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, Course
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db 
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import Note, User
 
 auth = Blueprint('auth',__name__)
 
@@ -53,10 +52,10 @@ def sign_up():
             db.session.commit()
             flash('Account successfully created', category='success')
             login_user(new_user, remember=True)
-            new_note1 = Note(data="00000", seats_available= 10, course_name = "Example", course_info = "Ex 101", user_id=current_user.id, term="202405")
-            new_note2 = Note(data="00001", seats_available= 0, course_name = "Example", course_info = "Ex 202", user_id=current_user.id, term="202408")
-            db.session.add(new_note1)
-            db.session.add(new_note2)
+            new_course1 = Course(data="00000", seats_available= 10, course_name = "Example", course_info = "Ex 101", user_id=current_user.id, term="202405")
+            new_course2 = Course(data="00001", seats_available= 0, course_name = "Example", course_info = "Ex 202", user_id=current_user.id, term="202408")
+            db.session.add(new_course1)
+            db.session.add(new_course2)
             db.session.commit()
             return redirect(url_for('views.home'))
         
